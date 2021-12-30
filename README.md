@@ -1,6 +1,10 @@
 # cc_dice_verify
 WIP: Verify coldcard dice rolls
 
+# Hardware:
+  - Raspberry Pi 3B
+  - Waveshare 1.3" oled SH1106
+ 
 # Interface:
 ## Main Menu: 
   - Use up and down hat to navigate main menu and press hat to select, only working option is the `Verify Rolls` currently
