@@ -1,5 +1,6 @@
 from menus.main_menu import MainMenu
 from menus.rolls_menu import RollsMenu
+from menus.about_menu import AboutMenu
 from interfaces.waveshare_hat_interface import WaveShareInterface
 
 class Controller:
