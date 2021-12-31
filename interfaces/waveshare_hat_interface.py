@@ -18,13 +18,11 @@ KEY3_PIN       = 16
 
 class WaveShareInterface(Interface):
     def __init__(self):
-        print("setup interface subclass")
         self.setup_gpio()
         self.active_pin = None
         super().__init__()
 
     def setup_gpio(self):
-        print("setup gpio")
         GPIO.setmode(GPIO.BCM) 
         GPIO.setup(KEY_UP_PIN,      GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Input with pull-up
         GPIO.setup(KEY_DOWN_PIN,    GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Input with pull-up

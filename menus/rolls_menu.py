@@ -7,7 +7,7 @@ class RollsMenu(Menu):
         super().__init__(display)
         self.font = ImageFont.truetype('resources/fonts/RobotoCondensed-Light.ttf', 12)
         self.number_rolls = 0
-        # default roll_value to 1, this shouldn't be used to generate rolls
+        # default roll_value to 1, this shouldn't be used to generate random rolls
         self.roll_value = 1
         self.roll_list = []
         self.hash = ''
@@ -33,16 +33,15 @@ class RollsMenu(Menu):
         # sha value
         if self.hash:
             h = self.hash.hex()
-            print("hash: {}".format(h))
-            # can't display all on crappy oled screen so chunk it for verification
-            h1 = h[:4]
-            h2 = h[8:12]
-            h3 = h[16:20]
-            h4 = h[28:32]
-            h5 = h[36:40]
-            h6 = h[44:48]
-            h7 = h[52:56]
-            h8 = h[60:64]
+            # can't display all on my oled so chunking pairs as much as I can for verification
+            h1 = h[:4] # 0 
+            h2 = h[8:12] # 3
+            h3 = h[16:20] # 5
+            h4 = h[28:32] # 8
+            h5 = h[36:40] # 10
+            h6 = h[44:48] # 12
+            h7 = h[52:56] # 14
+            h8 = h[60:64] # 16
             self.canvas.text((1,26), "{}..{}..{}..{}".format(h1, h2, h3, h4), font=self.font)
             self.canvas.text((1,38), "{}..{}..{}..{}".format(h5, h6, h7, h8), font=self.font)
 
@@ -51,10 +50,9 @@ class RollsMenu(Menu):
             self.canvas.text((1,53), self.mneumonic_list[self.mneumonic_index])
     
     def process_roll_state(self):
-        print("process roll state")
         roll_string = ''.join(self.roll_list)
-        print("Roll String: {}".format(roll_string))
         self.hash = get_hash_from_rolls(roll_string)
+        print("hash: {}".format(self.hash.hex()))
         self.mneumonic_list = mne_list = format_wordindex_to_list(roll_string, self.hash)
 
     def process_event(self, event):
@@ -72,13 +70,13 @@ class RollsMenu(Menu):
                 self.mneumonic_index = 0
         elif event == "HAT_LEFT_RELEASED":
             self.mneumonic_index -= 1
-            if self.mneumonic_index <= 0:
+            if self.mneumonic_index < 0:
                 self.mneumonic_index = len(self.mneumonic_list)-1
         elif event == "HAT_CENTER_RELEASED" or event == "KEY1_RELEASED":
             self.number_rolls += 1
             self.roll_list.append(str(self.roll_value))
             self.process_roll_state()
-            # reset back to 1 as well so people don't try to use it to generate rolls
+            # reset back to 1 as well so people don't try to use it to generate random rolls
             self.roll_value = 1
         elif event == "KEY3_RELEASED":
             # exit

@@ -5,7 +5,7 @@ class MainMenu(Menu):
     def __init__(self, display):
         super().__init__(display)
         self.active_index = 0
-        self.menu_list = ['Test Rolls', 'About']
+        self.menu_list = ['Verify Rolls', 'About']
         self.font = ImageFont.truetype('resources/fonts/RobotoCondensed-Light.ttf', 12)
         
 
@@ -16,7 +16,6 @@ class MainMenu(Menu):
         self.active_index = active_index
 
     def draw_screen(self):
-        self.draw_border()
         self.draw_menu_list()
     
     def draw_menu_list(self):
@@ -27,15 +26,6 @@ class MainMenu(Menu):
             if active_index == idx:
                 self.canvas.rectangle(((0,idx*height_offset),(128,idx*height_offset+height_offset)),fill=0)
             self.canvas.text((left_padding,idx*height_offset),item,font=self.font,fill=int(active_index == idx))
-
-    def draw_border(self):
-        pass
-        # border_width = self.display.width-1
-        # border_height = self.display.height-1
-        # self.canvas.line([(0,0),(border_width,0)], fill = 0)
-        # self.canvas.line([(0,0),(0,border_height)], fill = 0)
-        # self.canvas.line([(0,border_height),(border_width,border_height)], fill = 0)
-        # self.canvas.line([(border_width,0),(border_width,border_height)], fill = 0)
 
     def process_event(self, event):
         if event == "HAT_UP_RELEASED":

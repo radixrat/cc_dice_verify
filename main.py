@@ -1,23 +1,25 @@
-# TODO: process this per detected display
-from displays.SH1106 import SH1106
-from displays.SH1106 import config
-
+import argparse
 import time
+
 from controller.controller import Controller
 
-def main():
+def start(args):
     try:
-        display = SH1106.SH1106()
+        if args.display == "SH1106":
+            from displays.SH1106 import SH1106
+            from displays.SH1106 import config
+            display = SH1106.SH1106()
         controller = Controller(display)
         while True:
             event = controller.wait_for_event()
             controller.process_event(event)
-            time.sleep(10)
     except IOError as e:
         print(e)
-    except KeyboardInterrupt:    
-        print("ctrl + c:")
-        config.module_exit()
+    except KeyboardInterrupt:
         exit()
 
-main()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--display", default="SH1106", help="display being used")
+    args = parser.parse_args()
+    start(args)

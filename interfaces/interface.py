@@ -1,3 +1,4 @@
+# not used yet, but can see if we had different input devices could generalise underlying interfaces
 class Interface:
     def __init__(self):
         pass

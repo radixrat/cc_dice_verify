@@ -1,3 +1,5 @@
+# Source: https://www.waveshare.com/wiki/File:1.3inch-OLED-HAT-Code.7z
+
 from . import config
 import RPi.GPIO as GPIO
 import time

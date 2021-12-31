@@ -1,5 +1,5 @@
-from views.main_menu import MainMenu
-from views.rolls_menu import RollsMenu
+from menus.main_menu import MainMenu
+from menus.rolls_menu import RollsMenu
 from interfaces.waveshare_hat_interface import WaveShareInterface
 
 class Controller:
@@ -27,7 +27,6 @@ class Controller:
                 self.process_event(event)
 
     def switch_views(self, view_event):
-        print("switching views")
         if view_event == "MAIN_VIEW":
             self.active_menu = MainMenu(self.display)
         elif view_event == "ROLLS_VIEW":
